@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dilsahozkan.papafood.presentation.favoritePage.FavoriteScreen
+import com.dilsahozkan.papafood.presentation.favorite.FavoriteScreen
 import com.dilsahozkan.papafood.presentation.homePage.HomeScreen
 
 @Composable
