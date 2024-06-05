@@ -31,8 +31,8 @@ fun FavoriteScreen() {
         topBar = {
             Text(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 50.dp),
-                text = "Recipe Saved 🍽️",
+                    .padding(start = 16.dp, end = 16.dp, top = 5.dp),
+                text = "Recipe Saved 🍩",
                 fontSize = 20.sp,
                 fontFamily = mediumFont
             )

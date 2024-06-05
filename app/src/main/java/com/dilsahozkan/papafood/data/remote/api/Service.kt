@@ -16,6 +16,7 @@ interface Service {
             : Response<RandomRecipe>
 
     @GET("recipes/{id}/information")
-    suspend fun recipeDetail(@Path("id") number: Int)
+    suspend fun recipeDetail(@Path("id") number: Int,
+                             @Query("apiKey") apiKey: String)
             : Response<RecipeDetail>
 }

@@ -8,7 +8,7 @@ sealed class BottomBar(
     val icon: Int
 ) {
     data object Home : BottomBar(
-        route = "home",
+        route = "recipe",
         title = "Home",
         icon = R.drawable.ic_home
     )

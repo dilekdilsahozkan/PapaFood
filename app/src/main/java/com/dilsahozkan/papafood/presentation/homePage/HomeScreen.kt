@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.common.PageIndicator
 import com.dilsahozkan.papafood.common.ViewState
@@ -34,6 +35,7 @@ import com.dilsahozkan.papafood.ui.theme.mediumFont
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
+    navController: NavController,
     viewModel: RecipeViewModel = hiltViewModel()
 ) {
 
@@ -46,7 +48,7 @@ fun HomeScreen(
         topBar = {
             Row(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 50.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 5.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -83,7 +85,7 @@ fun HomeScreen(
                             pageSpacing = 16.dp,
                             modifier = Modifier.fillMaxWidth()
                         ) { page ->
-                            RecipeSliderScreen(recipe = recipe)
+                            RecipeSliderScreen(recipe = recipe, navController = navController)
                         }
                         PageIndicator(
                             pageCount = recipes.size,
@@ -93,8 +95,7 @@ fun HomeScreen(
                     }
                 }
                 RecipeItemScreen(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp))
+                    .fillMaxWidth())
             }
         }
 
@@ -104,5 +105,5 @@ fun HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+ //   HomeScreen()
 }

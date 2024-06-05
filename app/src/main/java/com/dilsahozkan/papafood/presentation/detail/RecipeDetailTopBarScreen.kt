@@ -1,5 +1,6 @@
 package com.dilsahozkan.papafood.presentation.detail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,33 +18,45 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
 import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.SoftOrangeColor
+import com.dilsahozkan.papafood.ui.theme.semiBold
 import kotlin.math.max
 import kotlin.math.min
 
+@SuppressLint("FrequentlyChangedStateReadInComposition")
 @Composable
-fun RecipeDetailTopBarScreen(recipe: RecipeDetail, scrollState: LazyListState, navController: NavController) {
+fun RecipeDetailTopBarScreen(
+    recipe: RecipeDetail,
+    scrollState: LazyListState,
+    navController: NavController
+) {
     val imageHeight = 294.dp
     val maxOffset = with(LocalDensity.current) { imageHeight.roundToPx() }
     val offset = min(scrollState.firstVisibleItemScrollOffset, maxOffset)
     val offsetProgress = max(0f, offset * 3f - 2f * maxOffset) / maxOffset
 
     Box(
-    modifier = Modifier
-    .height(350.dp)
-    .offset { IntOffset(x = 0, y = -offset) }
-    .background(White)
+        modifier = Modifier
+            .offset { IntOffset(x = 0, y = -offset) }
+            .background(White)
 
     ) {
         Column {
@@ -52,12 +65,12 @@ fun RecipeDetailTopBarScreen(recipe: RecipeDetail, scrollState: LazyListState, n
                     .height(imageHeight)
                     .graphicsLayer { alpha = 1f - offsetProgress }
             ) {
-//                AsyncImage(
-//                    model = recipe.imageUrl,
-//                    contentDescription = null,
-//                    contentScale = ContentScale.FillBounds,
-//                    modifier = Modifier.fillMaxWidth()
-//                )
+                AsyncImage(
+                    model = recipe.image,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             Column(
@@ -66,33 +79,28 @@ fun RecipeDetailTopBarScreen(recipe: RecipeDetail, scrollState: LazyListState, n
                     .padding(top = 10.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-//                Text(
-//                    text = recipe.name.toString().lowercase()
-//                        .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
-//                    fontSize = 20.sp,
-//                    fontFamily = semibold,
-//                    modifier = Modifier
-//                        .padding(horizontal = (16 + 28 * offsetProgress).dp)
-//                        .scale(1f - 0.25f * offsetProgress)
-//                )
+                Text(
+                    text = recipe.title.toString(),
+                    fontSize = 20.sp,
+                    fontFamily = semiBold,
+                    modifier = Modifier
+                        .padding(horizontal = (16 + 28 * offsetProgress).dp)
+                        .scale(1f - 0.25f * offsetProgress)
+                )
             }
         }
 
         Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
-                .statusBarsPadding()
-                .height(56.dp)
-                .padding(horizontal = 16.dp)
+                .height(60.dp)
+                .padding(16.dp)
         ) {
             IconButton(
                 onClick = {
                     navController.navigate("recipe")
                 },
                 modifier = Modifier
-                    .padding(top = 10.dp, end = 10.dp)
                     .size(48.dp)
                     .background(
                         MainColor,
@@ -100,9 +108,9 @@ fun RecipeDetailTopBarScreen(recipe: RecipeDetail, scrollState: LazyListState, n
                     )
             ) {
                 Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack,
+                    painter = painterResource(id = R.drawable.ic_back),
                     contentDescription = "RecipeTopBar Page",
-                    tint = SoftOrangeColor
+                    tint = White
                 )
             }
         }

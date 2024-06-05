@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.MainColor
 
@@ -23,31 +24,41 @@ fun BottomNavigationScreen(navController: NavHostController) {
     val navScreens = listOf(BottomBar.Home, BottomBar.Favorite)
     var selectedItem by rememberSaveable { mutableStateOf(0) }
 
-    NavigationBar(containerColor = Color.White) {
-        navScreens.forEachIndexed { index, item ->
-            NavigationBarItem(
-                selected = selectedItem == index,
-                colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color.White,
-                    selectedIconColor = MainColor,
-                    unselectedIconColor = Gray,
-                    selectedTextColor = MainColor,
-                    unselectedTextColor = Gray
-                ),
-                label = { Text(item.title) },
-                icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
-                onClick = {
-                    selectedItem = index
-                    navController.navigate(item.route) {
-                        navController.graph.startDestinationRoute?.let { route ->
-                            popUpTo(route) { saveState = true }
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                }
-            )
-        }
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = currentBackStackEntry?.destination
 
+    val shouldShowBottomBar = currentDestination?.route != Destination.RECIPE_DETAIL + "/{recipeId}"
+    if (shouldShowBottomBar) {
+        NavigationBar(containerColor = Color.White) {
+            navScreens.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    selected = selectedItem == index,
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = Color.White,
+                        selectedIconColor = MainColor,
+                        unselectedIconColor = Gray,
+                        selectedTextColor = MainColor,
+                        unselectedTextColor = Gray
+                    ),
+                    label = { Text(item.title) },
+                    icon = {
+                        Icon(
+                            painterResource(id = item.icon),
+                            contentDescription = item.title
+                        )
+                    },
+                    onClick = {
+                        selectedItem = index
+                        navController.navigate(item.route) {
+                            navController.graph.startDestinationRoute?.let { route ->
+                                popUpTo(route) { saveState = true }
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
+            }
+        }
     }
 }

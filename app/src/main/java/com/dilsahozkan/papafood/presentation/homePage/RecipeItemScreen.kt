@@ -1,16 +1,21 @@
 package com.dilsahozkan.papafood.presentation.homePage
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,8 +44,8 @@ fun RecipeItemScreen(modifier: Modifier) {
             containerColor = Color.White
         ),
         modifier = Modifier
-            .height(320.dp)
-            .padding(16.dp)
+            .height(300.dp)
+            .padding(horizontal = 16.dp)
             .shadow(
                 elevation = 10.dp,
                 spotColor = Gray,
@@ -61,12 +66,30 @@ fun RecipeItemScreen(modifier: Modifier) {
                     contentScale = ContentScale.FillBounds,
                     contentDescription = "Image"
                 )
-                Icon(
-                    modifier = Modifier.padding(10.dp),
-                    painter = painterResource(id = R.drawable.ic_favorite),
-                    tint = Gray,
-                    contentDescription = "Time"
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .padding(16.dp)
+                ) {
+                    IconButton(
+                        onClick = {
+                        //    navController.navigate("recipe")
+                        },
+                        modifier = Modifier
+                            .size(25.dp)
+                            .background(
+                                Color.White,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_favorite),
+                            contentDescription = "RecipeTopBar Page",
+                            tint = Gray
+                        )
+                    }
+                }
             }
 
             Text(

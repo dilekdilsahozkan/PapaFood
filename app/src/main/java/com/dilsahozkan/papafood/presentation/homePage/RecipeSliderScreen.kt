@@ -1,6 +1,8 @@
 package com.dilsahozkan.papafood.presentation.homePage
 
+import android.R.attr.maxLines
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,9 +21,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.data.remote.model.Recipe
@@ -30,9 +34,11 @@ import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.regular
 import com.dilsahozkan.papafood.ui.theme.semiBold
 
+
 @SuppressLint("DefaultLocale")
 @Composable
-fun RecipeSliderScreen(recipe: Recipe) {
+fun RecipeSliderScreen(recipe: Recipe,
+                       navController: NavController) {
 
     val formattedScore = String.format("%.1f", recipe.spoonacularScore)
 
@@ -48,7 +54,10 @@ fun RecipeSliderScreen(recipe: Recipe) {
                 spotColor = Gray,
                 shape = RoundedCornerShape(10.dp)
             )
-    ) {
+            .clickable {
+                navController.navigate("recipe_detail/${recipe.id}")
+            },
+        ) {
 
         Column(Modifier.fillMaxWidth()) {
             AsyncImage(
@@ -64,7 +73,9 @@ fun RecipeSliderScreen(recipe: Recipe) {
                 text = recipe.title.toString(),
                 fontFamily = semiBold,
                 fontSize = 18.sp,
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 16.dp, top = 10.dp),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Row(

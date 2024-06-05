@@ -8,6 +8,6 @@ import javax.inject.Inject
 
 class RecipeRepository @Inject constructor(private val service: Service) {
     suspend fun getRandomRecipes() : Response<RandomRecipe> = service.randomRecipes(1, "", false, "1c9833c37b344ca1bc91dc4c9eb507ae")
-    suspend fun getRecipeDetail(id: Int) : Response<RecipeDetail> = service.recipeDetail(id)
+        suspend fun getRecipeDetail(id: Int) : Response<RecipeDetail> = service.recipeDetail(id, "1c9833c37b344ca1bc91dc4c9eb507ae")
 
 }
