@@ -1,18 +1,38 @@
 package com.dilsahozkan.papafood.presentation.detail
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.dilsahozkan.papafood.common.ViewState
+import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
 import com.dilsahozkan.papafood.presentation.homePage.RecipeViewModel
 @Composable
-fun RecipeDetailScree(
+fun RecipeDetailScreen(
     navController: NavController,
     recipeId: Int?,
     viewModel: RecipeViewModel = hiltViewModel()
 ) {
 
     val scrollState = rememberLazyListState()
-  //  val detailState by viewModel.detailState.collectAsStateWithLifecycle()
+    val detailState by viewModel.detailState.collectAsState()
+
+    LaunchedEffect(recipeId) {
+        recipeId?.let { viewModel.getRecipeDetail(it) }
+    }
+
+    Box {
+        if (detailState is ViewState.Success) {
+            val recipeDetail: RecipeDetail =
+                (detailState as ViewState.Success<RecipeDetail>).data
+
+            RecipeDetailContent(recipeDetail, scrollState)
+            RecipeDetailTopBarScreen(recipeDetail, scrollState, navController)
+        }
+    }
 
 }
