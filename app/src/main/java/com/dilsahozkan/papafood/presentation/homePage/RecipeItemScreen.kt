@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dilsahozkan.papafood.R
+import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.regular
@@ -110,5 +111,5 @@ fun RecipeItemScreen(modifier: Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun RecipeItemScreenPreview() {
-    RecipeItemScreen(modifier = Modifier)
+ //   RecipeItemScreen(modifier = Modifier)
 }

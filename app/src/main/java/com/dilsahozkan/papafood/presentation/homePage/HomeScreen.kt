@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
@@ -13,39 +15,33 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.common.PageIndicator
+import com.dilsahozkan.papafood.common.ViewState
+import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
+import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.ui.theme.mediumFont
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.yield
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(modifier: Modifier) {
-    val imageSlider = listOf(
-        painterResource(id = R.drawable.img_banner1),
-        painterResource(id = R.drawable.img_banner2),
-        painterResource(id = R.drawable.img_banner3)
-    )
+fun HomeScreen(
+    viewModel: RecipeViewModel = hiltViewModel()
+) {
 
-    val pagerState = rememberPagerState(pageCount = { imageSlider.size })
+    val uiState by viewModel.recipeState.collectAsState()
 
     LaunchedEffect(Unit) {
-        while (true) {
-            yield()
-            delay(2600)
-            pagerState.animateScrollToPage(
-                page = (pagerState.currentPage + 1) % (pagerState.pageCount)
-            )
-        }
+        viewModel.getRandomRecipes()
     }
-
     Scaffold(
         topBar = {
             Row(
@@ -67,30 +63,46 @@ fun HomeScreen(modifier: Modifier) {
             }
         }
     ) { paddingValues ->
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            HorizontalPager(
-                state = pagerState,
-                pageSpacing = 16.dp,
-                modifier = Modifier
-            ) { page ->
 
-                RecipeSliderScreen(modifier = Modifier.padding(paddingValues))
+        Column {
+
+            if (uiState is ViewState.Success) {
+                val recipes: List<Recipe> =
+                    (uiState as ViewState.Success<RandomRecipe>).data.recipes ?: emptyList()
+                val imageSlider = listOf(recipes)
+                val pagerState = rememberPagerState(pageCount = { imageSlider.size})
+
+                LazyColumn(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(paddingValues)
+                ) {
+                    items(recipes) { recipe ->
+
+                        HorizontalPager(
+                            state = pagerState,
+                            pageSpacing = 16.dp,
+                            modifier = Modifier.fillMaxWidth()
+                        ) { page ->
+                            RecipeSliderScreen(recipe = recipe)
+                        }
+                        PageIndicator(
+                            pageCount = recipes.size,
+                            currentPage = pagerState.currentPage,
+                            modifier = Modifier
+                        )
+                    }
+                }
+                RecipeItemScreen(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp))
             }
-            PageIndicator(
-                pageCount = imageSlider.size,
-                currentPage = pagerState.currentPage,
-                modifier = modifier
-            )
-            RecipeItemScreen(modifier = Modifier.padding(paddingValues))
         }
+
     }
 }
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(modifier = Modifier)
+    HomeScreen()
 }

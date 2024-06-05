@@ -9,14 +9,16 @@ import com.dilsahozkan.papafood.presentation.favorite.FavoriteScreen
 import com.dilsahozkan.papafood.presentation.homePage.HomeScreen
 
 @Composable
-fun BottomNavGraph(navController: NavHostController) {
+fun BottomNavGraph(
+    navController: NavHostController
+) {
     NavHost(
         modifier = Modifier,
         navController = navController,
         startDestination = BottomBar.Home.route
     ) {
         composable(route = BottomBar.Home.route) {
-            HomeScreen(modifier = Modifier)
+            HomeScreen()
         }
         composable(route = BottomBar.Favorite.route) {
             FavoriteScreen()

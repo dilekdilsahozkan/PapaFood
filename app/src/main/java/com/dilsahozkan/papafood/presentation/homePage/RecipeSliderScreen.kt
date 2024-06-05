@@ -1,6 +1,6 @@
 package com.dilsahozkan.papafood.presentation.homePage
 
-import androidx.compose.foundation.Image
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,16 +22,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
+import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.regular
 import com.dilsahozkan.papafood.ui.theme.semiBold
 
+@SuppressLint("DefaultLocale")
 @Composable
-fun RecipeSliderScreen(modifier: Modifier) {
+fun RecipeSliderScreen(recipe: Recipe) {
 
-    val image = painterResource(id = R.drawable.img_banner3)
+    val formattedScore = String.format("%.1f", recipe.spoonacularScore)
 
     Card(
         colors = CardDefaults.cardColors(
@@ -48,17 +51,17 @@ fun RecipeSliderScreen(modifier: Modifier) {
     ) {
 
         Column(Modifier.fillMaxWidth()) {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .height(190.dp)
                     .fillMaxWidth(),
-                painter = image,
+                model = recipe.image,
                 contentScale = ContentScale.FillBounds,
                 contentDescription = "Image"
             )
 
             Text(
-                text = "Spiced Fried Chicken",
+                text = recipe.title.toString(),
                 fontFamily = semiBold,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(start = 16.dp, top = 10.dp)
@@ -76,7 +79,7 @@ fun RecipeSliderScreen(modifier: Modifier) {
                     contentDescription = "Star"
                 )
                 Text(
-                    text = "4.5",
+                    text = formattedScore,
                     fontFamily = regular,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -86,7 +89,7 @@ fun RecipeSliderScreen(modifier: Modifier) {
                     contentDescription = "Time"
                 )
                 Text(
-                    text = "13 minutes",
+                    text = recipe.readyInMinutes.toString() + " minutes",
                     fontFamily = regular,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -99,5 +102,5 @@ fun RecipeSliderScreen(modifier: Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun RecipeSliderScreenPreview() {
-    RecipeSliderScreen(modifier = Modifier)
+ //   RecipeSliderScreen(modifier = Modifier)
 }
