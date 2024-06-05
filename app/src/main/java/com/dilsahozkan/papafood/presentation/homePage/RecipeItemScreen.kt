@@ -62,7 +62,7 @@ fun RecipeItemScreen(modifier: Modifier) {
                 )
                 Icon(
                     modifier = Modifier.padding(10.dp),
-                    painter = painterResource(id = R.drawable.ic_add_favorite),
+                    painter = painterResource(id = R.drawable.ic_favorite),
                     tint = Gray,
                     contentDescription = "Time"
                 )

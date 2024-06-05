@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.dilsahozkan.papafood.presentation.homePage.HomeScreen
+import com.dilsahozkan.papafood.presentation.navigation.MainScreen
 import com.dilsahozkan.papafood.ui.theme.PapaFoodTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,10 +26,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PapaFoodTheme {
+                val navController = rememberNavController()
                 Surface(modifier = Modifier.fillMaxSize()){
-                    HomeScreen(
-                        modifier = Modifier
-                    )
+                    MainScreen(navController = navController)
                 }
             }
         }

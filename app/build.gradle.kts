@@ -75,8 +75,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.46")
-    kapt("com.google.dagger:hilt-android-compiler:2.46")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Retrofit - Okhttp
@@ -98,9 +98,15 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.5.3")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
+
+    //Material3
+    implementation("androidx.compose.material3:material3:1.2.1")
+
     implementation(libs.androidx.work.runtime.ktx)
+
+    implementation("androidx.compose.ui:ui:1.4.3")
 }
 
 kapt {
