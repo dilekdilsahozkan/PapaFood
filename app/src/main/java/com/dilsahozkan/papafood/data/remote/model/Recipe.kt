@@ -6,6 +6,8 @@ data class Recipe(
     @SerializedName("id") var id: Int? = null,
     @SerializedName("title") var title: String? = null,
     @SerializedName("image") var image: String? = null,
-    @SerializedName("spoonacularScore") val spoonacularScore: Double?,
-    @SerializedName("readyInMinutes") val readyInMinutes: Int?
+    @SerializedName("summary") val summary: String? = null,
+    @SerializedName("spoonacularScore") val spoonacularScore: Double? = null,
+    @SerializedName("pricePerServing") val pricePerServing: Double? = null,
+    @SerializedName("readyInMinutes") val readyInMinutes: Int? = null
 )

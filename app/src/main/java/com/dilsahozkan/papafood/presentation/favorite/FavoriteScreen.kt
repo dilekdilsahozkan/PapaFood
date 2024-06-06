@@ -2,7 +2,6 @@ package com.dilsahozkan.papafood.presentation.favorite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.ui.theme.mediumFont
 import com.dilsahozkan.papafood.ui.theme.semiBold
-import kotlin.math.round
 
 @Composable
 fun FavoriteScreen() {

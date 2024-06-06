@@ -11,16 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -36,7 +32,6 @@ import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
 import com.dilsahozkan.papafood.ui.theme.MainColor
-import com.dilsahozkan.papafood.ui.theme.SoftOrangeColor
 import com.dilsahozkan.papafood.ui.theme.semiBold
 import kotlin.math.max
 import kotlin.math.min

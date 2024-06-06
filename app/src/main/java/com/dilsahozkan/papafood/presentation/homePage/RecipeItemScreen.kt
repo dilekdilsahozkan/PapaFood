@@ -1,6 +1,6 @@
 package com.dilsahozkan.papafood.presentation.homePage
 
-import androidx.compose.foundation.Image
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -24,9 +22,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.ui.theme.Gray
@@ -34,18 +35,23 @@ import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.regular
 import com.dilsahozkan.papafood.ui.theme.semiBold
 
+@SuppressLint("DefaultLocale")
 @Composable
-fun RecipeItemScreen(modifier: Modifier) {
+fun RecipeItemScreen(
+    recipe: Recipe,
+    modifier: Modifier,
+    navController: NavController
+) {
 
-    val image = painterResource(id = R.drawable.img_banner1)
+    val formattedScore = String.format("%.1f", recipe.spoonacularScore)
 
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
-        modifier = Modifier
+        modifier = modifier
             .height(300.dp)
-            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
             .shadow(
                 elevation = 10.dp,
                 spotColor = Gray,
@@ -54,15 +60,16 @@ fun RecipeItemScreen(modifier: Modifier) {
             .fillMaxWidth()
     ) {
 
-        Column(Modifier.fillMaxWidth()) {
+        Column {
 
             Box(
-                contentAlignment = Alignment.TopEnd){
-                Image(
+                contentAlignment = Alignment.TopEnd
+            ) {
+                AsyncImage(
                     modifier = Modifier
-                        .height(210.dp)
+                        .height(200.dp)
                         .fillMaxWidth(),
-                    painter = image,
+                    model = recipe.image,
                     contentScale = ContentScale.FillBounds,
                     contentDescription = "Image"
                 )
@@ -74,29 +81,31 @@ fun RecipeItemScreen(modifier: Modifier) {
                 ) {
                     IconButton(
                         onClick = {
-                        //    navController.navigate("recipe")
+                            //    navController.navigate("favorite")
                         },
                         modifier = Modifier
-                            .size(25.dp)
+                            .size(32.dp)
                             .background(
-                                Color.White,
-                                shape = RoundedCornerShape(16.dp)
+                                Color.Transparent,
+                                shape = RoundedCornerShape(8.dp)
                             )
                     ) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_favorite),
+                            painter = painterResource(R.drawable.ic_favorite),
                             contentDescription = "RecipeTopBar Page",
-                            tint = Gray
+                            tint = Gray,
                         )
                     }
                 }
             }
 
             Text(
-                text = "Spiced Fried Chicken",
+                text = recipe.title.toString(),
                 fontFamily = semiBold,
                 fontSize = 18.sp,
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 16.dp, top = 10.dp),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Row(
@@ -111,7 +120,7 @@ fun RecipeItemScreen(modifier: Modifier) {
                     contentDescription = "Star"
                 )
                 Text(
-                    text = "4.5",
+                    text = formattedScore,
                     fontFamily = regular,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -121,7 +130,7 @@ fun RecipeItemScreen(modifier: Modifier) {
                     contentDescription = "Time"
                 )
                 Text(
-                    text = "13 minutes",
+                    text = recipe.readyInMinutes.toString() + " minutes",
                     fontFamily = regular,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -134,5 +143,5 @@ fun RecipeItemScreen(modifier: Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun RecipeItemScreenPreview() {
- //   RecipeItemScreen(modifier = Modifier)
+    //   RecipeItemScreen(modifier = Modifier)
 }

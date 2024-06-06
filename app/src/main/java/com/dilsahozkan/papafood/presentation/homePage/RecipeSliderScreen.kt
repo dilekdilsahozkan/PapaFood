@@ -1,6 +1,5 @@
 package com.dilsahozkan.papafood.presentation.homePage
 
-import android.R.attr.maxLines
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -33,7 +32,6 @@ import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.regular
 import com.dilsahozkan.papafood.ui.theme.semiBold
-
 
 @SuppressLint("DefaultLocale")
 @Composable

@@ -1,10 +1,15 @@
 package com.dilsahozkan.papafood.di
 
+import android.content.Context
+import androidx.room.Room
 import com.dilsahozkan.papafood.BuildConfig
+import com.dilsahozkan.papafood.data.local.RecipeDB
+import com.dilsahozkan.papafood.data.local.dao.RecipeDao
 import com.dilsahozkan.papafood.data.remote.api.Service
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,4 +48,27 @@ class RecipeDI {
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit) = retrofit.create(Service::class.java)
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    object DatabasesModule {
+
+        @Provides
+        @Singleton
+        fun provideCharactersDao(database: RecipeDB): RecipeDao {
+            return database.recipeDao()
+        }
+
+        @Provides
+        @Singleton
+        fun provideDatabase(
+            @ApplicationContext context: Context
+        ): RecipeDB {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                RecipeDB::class.java,
+                "recipe.db"
+            ).build()
+        }
+    }
 }

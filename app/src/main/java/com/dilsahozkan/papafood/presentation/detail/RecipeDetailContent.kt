@@ -2,26 +2,20 @@ package com.dilsahozkan.papafood.presentation.detail
 
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,7 +29,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -47,12 +40,9 @@ import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.common.ViewState
 import com.dilsahozkan.papafood.common.stripHtml
 import com.dilsahozkan.papafood.data.remote.model.Ingredients
-import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
-import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
 import com.dilsahozkan.papafood.presentation.homePage.RecipeViewModel
 import com.dilsahozkan.papafood.ui.theme.MainColor
-import com.dilsahozkan.papafood.ui.theme.SoftOrangeColor
 import com.dilsahozkan.papafood.ui.theme.mediumFont
 import com.dilsahozkan.papafood.ui.theme.regular
 
@@ -71,8 +61,9 @@ fun RecipeDetailContent(
         item {
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.height(90.dp)
+                modifier = Modifier
                     .fillMaxWidth()
+                    .padding(vertical = 8.dp)
             ) {
                 InfoColumn(
                     iconResource = R.drawable.ic_time,
@@ -86,7 +77,7 @@ fun RecipeDetailContent(
 
             Text(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp)
                     .fillMaxWidth(),
                 text = "Ingredients",
                 color = MainColor,
@@ -99,7 +90,7 @@ fun RecipeDetailContent(
                 val recipeDetail: List<Ingredients> =
                     (uiState as ViewState.Success<RecipeDetail>).data.extendedIngredients
                         ?: emptyList()
-                LazyRow {
+                LazyColumn {
                     items(recipeDetail) { ingredient ->
                         IngredientCard(ingredients = ingredient, modifier = Modifier)
                     }
@@ -180,7 +171,9 @@ fun InfoColumn(@DrawableRes iconResource: Int, text: String) {
             painter = painterResource(id = iconResource),
             contentDescription = null,
             tint = MainColor,
-            modifier = Modifier.size(30.dp).padding(bottom = 5.dp)
+            modifier = Modifier
+                .size(30.dp)
+                .padding(bottom = 5.dp)
         )
         Text(text = text, fontFamily = mediumFont)
     }

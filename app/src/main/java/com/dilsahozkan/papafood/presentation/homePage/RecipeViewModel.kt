@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dilsahozkan.papafood.common.BaseResult
 import com.dilsahozkan.papafood.common.ViewState
+import com.dilsahozkan.papafood.data.local.RecipeDB
+import com.dilsahozkan.papafood.data.local.entity.RecipeEntity
 import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
 import com.dilsahozkan.papafood.domain.RecipeUseCase
@@ -17,7 +19,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeViewModel @Inject constructor(private val recipeUseCase: RecipeUseCase) : ViewModel()  {
+class RecipeViewModel @Inject constructor(
+    private val recipeUseCase: RecipeUseCase,
+    private val localData: RecipeDB
+) : ViewModel() {
 
     var _recipeState: MutableStateFlow<ViewState<RandomRecipe>> = MutableStateFlow(ViewState.Idle())
     val recipeState: StateFlow<ViewState<RandomRecipe>> = _recipeState
@@ -39,6 +44,7 @@ class RecipeViewModel @Inject constructor(private val recipeUseCase: RecipeUseCa
                     when (result) {
                         is BaseResult.Success -> {
                             _recipeState.value = ViewState.Success(result.data)
+                            insertRecipesIntoDB(result.data)
                         }
 
                         is BaseResult.Error -> {
@@ -50,6 +56,25 @@ class RecipeViewModel @Inject constructor(private val recipeUseCase: RecipeUseCa
                 }
         }
     }
+
+    private suspend fun insertRecipesIntoDB(randomRecipe: RandomRecipe) {
+        val recipeEntities = randomRecipe.recipes?.map { recipe ->
+            recipe.id?.let {
+                RecipeEntity(
+                    id = it,
+                    title = recipe.title,
+                    image = recipe.image,
+                    summary = recipe.summary,
+                    spoonacularScore = recipe.spoonacularScore,
+                    readyInMinutes = recipe.readyInMinutes,
+                    pricePerServing = recipe.pricePerServing,
+                    saved = false // or some default value
+                )
+            }
+        }
+        localData.recipeDao().insertAll(recipeEntities as List<RecipeEntity>)
+    }
+
     fun getRecipeDetail(id: Int) {
         viewModelScope.launch {
             recipeUseCase.getRecipeDetail(id)

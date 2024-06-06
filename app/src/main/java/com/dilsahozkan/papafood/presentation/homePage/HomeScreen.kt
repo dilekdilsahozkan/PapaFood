@@ -44,6 +44,7 @@ fun HomeScreen(
     LaunchedEffect(Unit) {
         viewModel.getRandomRecipes()
     }
+
     Scaffold(
         topBar = {
             Row(
@@ -71,21 +72,22 @@ fun HomeScreen(
             if (uiState is ViewState.Success) {
                 val recipes: List<Recipe> =
                     (uiState as ViewState.Success<RandomRecipe>).data.recipes ?: emptyList()
-                val imageSlider = listOf(recipes)
-                val pagerState = rememberPagerState(pageCount = { imageSlider.size})
+                val pagerState = rememberPagerState(pageCount = { recipes.size })
 
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.padding(paddingValues)
                 ) {
-                    items(recipes) { recipe ->
-
+                    item {
                         HorizontalPager(
                             state = pagerState,
                             pageSpacing = 16.dp,
                             modifier = Modifier.fillMaxWidth()
                         ) { page ->
-                            RecipeSliderScreen(recipe = recipe, navController = navController)
+                            RecipeSliderScreen(
+                                recipe = recipes[page],
+                                navController = navController
+                            )
                         }
                         PageIndicator(
                             pageCount = recipes.size,
@@ -93,17 +95,25 @@ fun HomeScreen(
                             modifier = Modifier
                         )
                     }
+                    items(recipes) { recipe ->
+                        RecipeItemScreen(
+                            recipe = recipe,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            navController = navController
+                        )
+                    }
                 }
-                RecipeItemScreen(modifier = Modifier
-                    .fillMaxWidth())
             }
         }
 
     }
 }
 
+
 @Preview
 @Composable
 fun HomeScreenPreview() {
- //   HomeScreen()
+    //   HomeScreen()
 }

@@ -73,7 +73,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Coil
-    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
     // Hilt
     implementation(libs.hilt.android)
@@ -104,10 +104,12 @@ dependencies {
 
     //Material3
     implementation("androidx.compose.material3:material3:1.2.1")
-
     implementation(libs.androidx.work.runtime.ktx)
-
     implementation("androidx.compose.ui:ui:1.4.3")
+
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
 }
 
 kapt {
