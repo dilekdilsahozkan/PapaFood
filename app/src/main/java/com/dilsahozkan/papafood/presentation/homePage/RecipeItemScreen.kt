@@ -2,6 +2,7 @@ package com.dilsahozkan.papafood.presentation.homePage
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -26,6 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
@@ -40,10 +44,11 @@ import com.dilsahozkan.papafood.ui.theme.semiBold
 fun RecipeItemScreen(
     recipe: Recipe,
     modifier: Modifier,
-    navController: NavController
+    navController: NavController,
+    viewModel: RecipeViewModel = hiltViewModel()
 ) {
-
     val formattedScore = String.format("%.1f", recipe.spoonacularScore)
+    val isFavorite = remember { mutableStateOf(viewModel.isFavorite(recipe)) }
 
     Card(
         colors = CardDefaults.cardColors(
@@ -59,29 +64,36 @@ fun RecipeItemScreen(
             )
             .fillMaxWidth()
     ) {
-
         Column {
 
             Box(
-                contentAlignment = Alignment.TopEnd
+                contentAlignment = Alignment.TopStart
             ) {
                 AsyncImage(
                     modifier = Modifier
                         .height(200.dp)
                         .fillMaxWidth(),
                     model = recipe.image,
-                    contentScale = ContentScale.FillBounds,
+                    contentScale = ContentScale.FillWidth,
                     contentDescription = "Image"
                 )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(60.dp)
+                        .height(100.dp)
                         .padding(16.dp)
-                ) {
+                )
+                {
                     IconButton(
                         onClick = {
-                            //    navController.navigate("favorite")
+                            if (isFavorite.value) {
+                                viewModel.removeRecipeFromFavorite(recipe)
+                            } else {
+                                viewModel.favoriteList.add(recipe)
+                                viewModel.addRecipeToFavorite(viewModel.favoriteList)
+
+                            }
+                            isFavorite.value = !isFavorite.value
                         },
                         modifier = Modifier
                             .size(32.dp)
@@ -91,19 +103,27 @@ fun RecipeItemScreen(
                             )
                     ) {
                         Icon(
+                            modifier = Modifier
+                                .background(color = Color.White)
+                                .size(40.dp),
                             painter = painterResource(R.drawable.ic_favorite),
                             contentDescription = "RecipeTopBar Page",
-                            tint = Gray,
+                            tint = if (isFavorite.value) MainColor else Gray
                         )
                     }
                 }
+
             }
 
             Text(
                 text = recipe.title.toString(),
                 fontFamily = semiBold,
                 fontSize = 18.sp,
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp),
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 10.dp)
+                    .clickable {
+                        navController.navigate("recipe_detail/${recipe.id}")
+                    },
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

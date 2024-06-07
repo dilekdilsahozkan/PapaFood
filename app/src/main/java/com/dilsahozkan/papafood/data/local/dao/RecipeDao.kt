@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dilsahozkan.papafood.data.local.entity.RecipeEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecipeDao {
@@ -12,7 +13,7 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(recipe: List<RecipeEntity>)
     @Query("SELECT * FROM Recipe")
-    fun getAll(): List<RecipeEntity>
+    fun getAll(): Flow<List<RecipeEntity>>
 
     @Query("SELECT * FROM Recipe LIMIT :limit")
     fun getAll(limit:Int): List<RecipeEntity>

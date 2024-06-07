@@ -7,6 +7,7 @@ sealed class BottomBar(
     val title: String,
     val icon: Int
 ) {
+
     data object Home : BottomBar(
         route = "recipe",
         title = "Home",

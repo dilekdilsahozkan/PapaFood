@@ -31,6 +31,9 @@ fun BottomNavGraph(navController: NavHostController) {
             composable(route = BottomBar.Favorite.route) {
                 FavoriteScreen()
             }
+            composable(route = Destination.FAVORITE) {
+                FavoriteScreen()
+            }
             composable(
                 route = Destination.RECIPE_DETAIL + "/{recipeId}",
                 arguments = listOf(navArgument("recipeId") { type = NavType.IntType })
@@ -43,7 +46,6 @@ fun BottomNavGraph(navController: NavHostController) {
 
 
 object Destination {
-    const val RECIPE = "recipe"
-    const val RECIPE_DETAIL = "recipe_detail"
     const val FAVORITE = "favorite"
+    const val RECIPE_DETAIL = "recipe_detail"
 }

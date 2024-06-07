@@ -4,8 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import com.dilsahozkan.papafood.BuildConfig
 import com.dilsahozkan.papafood.data.local.RecipeDB
+import com.dilsahozkan.papafood.data.local.dao.FavoriteDao
 import com.dilsahozkan.papafood.data.local.dao.RecipeDao
 import com.dilsahozkan.papafood.data.remote.api.Service
+import com.dilsahozkan.papafood.data.repository.RecipeRepository
+import com.dilsahozkan.papafood.data.repository.RecipeRepositoryImpl
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,12 +55,28 @@ class RecipeDI {
 
     @Module
     @InstallIn(SingletonComponent::class)
+    abstract class RepositoryModule {
+        @Singleton
+        @Binds
+        abstract fun bindRecipeRepository(
+            recipeRepositoryImpl: RecipeRepositoryImpl
+        ): RecipeRepository
+    }
+
+    @Module
+    @InstallIn(SingletonComponent::class)
     object DatabasesModule {
 
         @Provides
         @Singleton
         fun provideCharactersDao(database: RecipeDB): RecipeDao {
             return database.recipeDao()
+        }
+
+        @Provides
+        @Singleton
+        fun provideFavoriteDao(database: RecipeDB): FavoriteDao {
+            return database.favoriteDao()
         }
 
         @Provides

@@ -9,5 +9,6 @@ data class Recipe(
     @SerializedName("summary") val summary: String? = null,
     @SerializedName("spoonacularScore") val spoonacularScore: Double? = null,
     @SerializedName("pricePerServing") val pricePerServing: Double? = null,
-    @SerializedName("readyInMinutes") val readyInMinutes: Int? = null
+    @SerializedName("readyInMinutes") val readyInMinutes: Int? = null,
+    @SerializedName("saved") val saved: Boolean? = null
 )
