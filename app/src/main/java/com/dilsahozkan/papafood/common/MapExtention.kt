@@ -6,16 +6,7 @@ import com.dilsahozkan.papafood.data.remote.model.SearchRecipe
 
 fun SearchRecipe.toLocal(): List<RecipeEntity> {
     return this.results?.map {
-        it.toLocal() ?: RecipeEntity(
-            id = 0,
-            title = "",
-            image = "",
-            summary = "",
-            spoonacularScore = 0.0,
-            readyInMinutes = 0,
-            pricePerServing = 0.0,
-            saved = false,
-        )
+        it.toLocal()
     }.orEmpty()
 }
 fun Recipe.toLocal(): RecipeEntity {
@@ -24,7 +15,7 @@ fun Recipe.toLocal(): RecipeEntity {
         title = this.title ?: "",
         image = this.image ?: "",
         summary = this.summary ?: "",
-        spoonacularScore = this.spoonacularScore ?: 0.0,
+        score = this.score ?: 0.0,
         readyInMinutes = this.readyInMinutes ?: 0,
         pricePerServing = this.pricePerServing ?: 0.0,
         saved = this.saved ?: false

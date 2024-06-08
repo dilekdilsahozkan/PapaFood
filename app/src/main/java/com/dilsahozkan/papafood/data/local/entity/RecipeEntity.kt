@@ -10,7 +10,7 @@ data class RecipeEntity(
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "image") val image: String?,
     @ColumnInfo(name = "summary") val summary: String?,
-    @ColumnInfo(name = "spoonacularScore") val spoonacularScore: Double?,
+    @ColumnInfo(name = "spoonacularScore") val score: Double?,
     @ColumnInfo(name = "readyInMinutes") val readyInMinutes: Int?,
     @ColumnInfo(name = "pricePerServing") val pricePerServing: Double?,
     @ColumnInfo(name = "saved") val saved: Boolean?,

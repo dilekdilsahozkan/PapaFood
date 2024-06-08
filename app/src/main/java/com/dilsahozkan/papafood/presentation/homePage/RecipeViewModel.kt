@@ -134,7 +134,7 @@ class RecipeViewModel @Inject constructor(
                     title = it.title,
                     image = it.image,
                     summary = it.summary,
-                    spoonacularScore = it.spoonacularScore,
+                    score = it.score,
                     readyInMinutes = it.readyInMinutes,
                     pricePerServing = it.pricePerServing,
                     saved = false
@@ -152,7 +152,7 @@ class RecipeViewModel @Inject constructor(
                     title = it.title,
                     image = it.image,
                     summary = it.summary,
-                    spoonacularScore = it.spoonacularScore,
+                    score = it.score,
                     readyInMinutes = it.readyInMinutes,
                     pricePerServing = it.pricePerServing,
                     saved = false

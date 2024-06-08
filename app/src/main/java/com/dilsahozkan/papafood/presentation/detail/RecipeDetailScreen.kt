@@ -37,5 +37,4 @@ fun RecipeDetailScreen(
             RecipeDetailTopBarScreen(recipeDetail, scrollState, navController)
         }
     }
-
 }

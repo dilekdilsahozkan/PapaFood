@@ -38,7 +38,7 @@ import com.dilsahozkan.papafood.ui.theme.semiBold
 fun RecipeSliderScreen(recipe: Recipe,
                        navController: NavController) {
 
-    val formattedScore = String.format("%.1f", recipe.spoonacularScore)
+    val formattedScore = String.format("%.1f", recipe.score)
 
     Card(
         colors = CardDefaults.cardColors(

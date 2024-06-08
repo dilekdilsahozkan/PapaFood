@@ -47,7 +47,7 @@ fun RecipeItemScreen(
     navController: NavController,
     viewModel: RecipeViewModel = hiltViewModel()
 ) {
-    val formattedScore = String.format("%.1f", recipe.spoonacularScore)
+    val formattedScore = String.format("%.1f", recipe.score)
     val isFavorite = remember { mutableStateOf(viewModel.isFavorite(recipe)) }
 
     Card(
@@ -62,6 +62,9 @@ fun RecipeItemScreen(
                 spotColor = Gray,
                 shape = RoundedCornerShape(10.dp)
             )
+            .clickable {
+                navController.navigate("recipe_detail/${recipe.id}")
+            }
             .fillMaxWidth()
     ) {
         Column {
@@ -120,10 +123,7 @@ fun RecipeItemScreen(
                 fontFamily = semiBold,
                 fontSize = 18.sp,
                 modifier = Modifier
-                    .padding(start = 16.dp, top = 10.dp)
-                    .clickable {
-                        navController.navigate("recipe_detail/${recipe.id}")
-                    },
+                    .padding(start = 16.dp, top = 10.dp),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

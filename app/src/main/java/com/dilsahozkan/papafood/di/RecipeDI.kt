@@ -3,6 +3,7 @@ package com.dilsahozkan.papafood.di
 import android.content.Context
 import androidx.room.Room
 import com.dilsahozkan.papafood.BuildConfig
+import com.dilsahozkan.papafood.common.PreferencesManager
 import com.dilsahozkan.papafood.data.local.RecipeDB
 import com.dilsahozkan.papafood.data.local.dao.FavoriteDao
 import com.dilsahozkan.papafood.data.local.dao.RecipeDao
@@ -53,15 +54,17 @@ class RecipeDI {
     @Singleton
     fun provideApiService(retrofit: Retrofit) = retrofit.create(Service::class.java)
 
-    @Module
-    @InstallIn(SingletonComponent::class)
-    abstract class RepositoryModule {
-        @Singleton
-        @Binds
-        abstract fun bindRecipeRepository(
-            recipeRepositoryImpl: RecipeRepositoryImpl
-        ): RecipeRepository
-    }
+    @Provides
+    @Singleton
+    fun providePreferencesManager(@ApplicationContext context: Context): PreferencesManager =
+        PreferencesManager(context)
+
+    @Singleton
+    @Provides
+    fun provideRecipeRepository(
+        service: Service,
+        preferencesManager: PreferencesManager
+    ): RecipeRepository = RecipeRepositoryImpl(service, preferencesManager)
 
     @Module
     @InstallIn(SingletonComponent::class)

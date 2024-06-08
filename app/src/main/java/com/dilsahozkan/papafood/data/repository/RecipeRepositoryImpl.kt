@@ -1,5 +1,6 @@
 package com.dilsahozkan.papafood.data.repository
 
+import com.dilsahozkan.papafood.common.PreferencesManager
 import com.dilsahozkan.papafood.data.remote.api.Service
 import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
@@ -8,9 +9,12 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class RecipeRepositoryImpl @Inject constructor(
-    private val service: Service
+    private val service: Service,
+    private val preferencesManager: PreferencesManager
 ) : RecipeRepository {
-    val apiKey = "dabb2642f82249f5b6c4a0fda9df4d08"
+
+    val apiKey = preferencesManager.getApiKey()
+
     override suspend fun getRandomRecipes(): Response<RandomRecipe> =
         service.randomRecipes(3, "", false, apiKey)
 
