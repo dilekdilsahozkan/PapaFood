@@ -2,4 +2,12 @@
 <resources>
 
     <style name="Theme.PapaFood" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen.IconBackground" >
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen</item>
+        <item name="windowSplashScreenBackground">@color/splashBackground</item>
+        <item name="postSplashScreenTheme">@style/Theme.PapaFood</item>
+    </style>
+
 </resources>

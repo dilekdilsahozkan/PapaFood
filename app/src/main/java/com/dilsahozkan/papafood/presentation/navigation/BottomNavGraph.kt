@@ -12,7 +12,6 @@ import androidx.navigation.navArgument
 import com.dilsahozkan.papafood.presentation.detail.RecipeDetailScreen
 import com.dilsahozkan.papafood.presentation.favorite.FavoriteScreen
 import com.dilsahozkan.papafood.presentation.homePage.HomeScreen
-import com.dilsahozkan.papafood.presentation.splash.SplashScreen
 
 @Composable
 fun BottomNavGraph(navController: NavHostController) {
@@ -24,17 +23,8 @@ fun BottomNavGraph(navController: NavHostController) {
         NavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            startDestination = Destination.SPLASH
+            startDestination = BottomBar.Home.route
         ) {
-            composable(route = Destination.SPLASH) {
-                SplashScreen(
-                    onSplashFinished = {
-                        if (it) {
-                            navController.navigate(BottomBar.Home.route)
-                        }
-                    }
-                )
-            }
             composable(route = BottomBar.Home.route) {
                 HomeScreen(navController = navController)
             }
@@ -52,6 +42,5 @@ fun BottomNavGraph(navController: NavHostController) {
 }
 
 object Destination {
-    const val SPLASH = "splash"
     const val RECIPE_DETAIL = "recipe_detail"
 }

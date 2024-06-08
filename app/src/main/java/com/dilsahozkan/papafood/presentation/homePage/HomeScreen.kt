@@ -2,7 +2,6 @@ package com.dilsahozkan.papafood.presentation.homePage
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,8 +41,8 @@ fun HomeScreen(
     viewModel: RecipeViewModel = hiltViewModel()
 ) {
 
-    val uiState by viewModel.recipeState.collectAsState()
-    val searchState by viewModel.searchState.collectAsState()
+    val recipeSliderState by viewModel.recipeState.collectAsState()
+    val recipeItemState by viewModel.searchState.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getRandomRecipes()
@@ -54,7 +53,8 @@ fun HomeScreen(
         topBar = {
             Row(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 5.dp)
+                    .height(50.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 16.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -72,60 +72,53 @@ fun HomeScreen(
         }
     ) { paddingValues ->
 
-        Column {
+        LazyColumn(
+            modifier = Modifier.padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-            if (uiState is ViewState.Success) {
+            if (recipeSliderState is ViewState.Success) {
                 val randomRecipes: List<Recipe> =
-                    (uiState as ViewState.Success<RandomRecipe>).data.recipes ?: emptyList()
-                val pagerState = rememberPagerState(pageCount = { randomRecipes.size })
+                    (recipeSliderState as ViewState.Success<RandomRecipe>).data.recipes
+                        ?: emptyList()
+                item {
+                    val pagerState = rememberPagerState(pageCount = { randomRecipes.size })
+                    HorizontalPager(
+                        state = pagerState,
+                        contentPadding = PaddingValues(end = 80.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp)
+                            .width(280.dp)
+                    ) { page ->
 
-                LazyColumn(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(paddingValues)
-                ) {
-                    item {
-                        HorizontalPager(
-                            state = pagerState,
-                            contentPadding = PaddingValues(end = 80.dp),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(300.dp)
-                                .width(280.dp)
-                        ) { page ->
-
-                            RecipeSliderScreen(
-                                recipe = randomRecipes[page],
-                                navController = navController
-                            )
-
-                        }
-                        PageIndicator(
-                            pageCount = randomRecipes.size,
-                            currentPage = pagerState.currentPage,
-                            modifier = Modifier
+                        RecipeSliderScreen(
+                            recipe = randomRecipes[page],
+                            navController = navController
                         )
+
                     }
+                    PageIndicator(
+                        pageCount = randomRecipes.size,
+                        currentPage = pagerState.currentPage,
+                        modifier = Modifier
+                    )
                 }
             }
 
-            if (searchState is ViewState.Success) {
+            if (recipeItemState is ViewState.Success) {
                 val recipeList =
-                    (searchState as ViewState.Success<SearchRecipe>).data.results ?: emptyList()
-                LazyColumn(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(recipeList) { recipe ->
-                        RecipeItemScreen(
-                            recipe = recipe,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp),
-                            navController = navController
-                        )
-                    }
+                    (recipeItemState as ViewState.Success<SearchRecipe>).data.results ?: emptyList()
+                items(recipeList) { recipe ->
+                    RecipeItemScreen(
+                        recipe = recipe,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        navController = navController
+                    )
                 }
             }
         }
-
     }
 }

@@ -48,7 +48,8 @@ class PreferencesManager(private val context: Context) {
         val ivBytes = cipher.iv
         val encryptedBytes = cipher.doFinal(data.toByteArray())
         val ivBase64 = android.util.Base64.encodeToString(ivBytes, android.util.Base64.DEFAULT)
-        val dataBase64 = android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
+        val dataBase64 =
+            android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
         return "$ivBase64:$dataBase64"
     }
 

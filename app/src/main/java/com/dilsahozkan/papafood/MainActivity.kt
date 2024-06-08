@@ -1,17 +1,16 @@
 package com.dilsahozkan.papafood
 
-import com.dilsahozkan.papafood.common.PreferencesManager
 import android.os.Bundle
-import com.dilsahozkan.papafood.BuildConfig
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import com.dilsahozkan.papafood.common.PreferencesManager
 import com.dilsahozkan.papafood.presentation.navigation.MainScreen
 import com.dilsahozkan.papafood.ui.theme.PapaFoodTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +24,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        installSplashScreen()
 
         val apiKey = BuildConfig.API_KEY
         preferencesManager.storeApiKey(apiKey)
