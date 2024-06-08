@@ -93,7 +93,7 @@ fun RecipeDetailTopBarScreen(
         ) {
             IconButton(
                 onClick = {
-                    navController.navigate("recipe")
+                    navController.popBackStack()
                 },
                 modifier = Modifier
                     .size(48.dp)

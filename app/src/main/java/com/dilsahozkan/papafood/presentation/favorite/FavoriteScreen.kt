@@ -1,10 +1,14 @@
 package com.dilsahozkan.papafood.presentation.favorite
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,10 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.dilsahozkan.papafood.ui.theme.mediumFont
 
 @Composable
 fun FavoriteScreen(
+    navController: NavController,
     viewModel: FavoriteViewModel = hiltViewModel()
 ) {
     val dataList by viewModel.dataList.collectAsState()
@@ -35,13 +41,12 @@ fun FavoriteScreen(
         }
     ) { paddingValues ->
 
-        LazyVerticalGrid(
-            modifier = Modifier.padding(paddingValues),
-            columns = GridCells.Adaptive(minSize = 205.dp)
+            LazyColumn(
+            modifier = Modifier.padding(paddingValues).fillMaxWidth()
 
         ) {
             items(dataList) { item ->
-                FavoriteItemScreen(item)
+                FavoriteItemScreen(item, navController)
             }
         }
     }

@@ -1,9 +1,7 @@
 package com.dilsahozkan.papafood.domain
 
 import com.dilsahozkan.papafood.common.BaseResult
-import com.dilsahozkan.papafood.data.local.entity.RecipeEntity
 import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
-import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
 import com.dilsahozkan.papafood.data.remote.model.SearchRecipe
 import com.dilsahozkan.papafood.data.repository.RecipeRepository
@@ -54,14 +52,4 @@ class RecipeUseCase @Inject constructor(private val recipeRepository: RecipeRepo
             }
         }
     }
-
-//    fun insertRecipe(isSaved: Recipe): Flow<BaseResult<Recipe>> {
-//        return flow {
-//            emit(
-//                BaseResult.Success(
-//                    recipeRepository.addFavorites(isSaved)
-//                )
-//            )
-//        }
-//    }
 }

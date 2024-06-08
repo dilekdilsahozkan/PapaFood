@@ -107,9 +107,3 @@ fun RecipeSliderScreen(recipe: Recipe,
 
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun RecipeSliderScreenPreview() {
- //   RecipeSliderScreen(modifier = Modifier)
-}

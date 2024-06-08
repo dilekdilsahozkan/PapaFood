@@ -28,6 +28,15 @@ fun BottomNavigationScreen(navController: NavHostController) {
     val currentDestination = currentBackStackEntry?.destination
 
     val shouldShowBottomBar = currentDestination?.route != Destination.RECIPE_DETAIL + "/{recipeId}"
+
+    currentDestination?.route?.let { route ->
+        selectedItem = when (route) {
+            BottomBar.Home.route -> 0
+            BottomBar.Favorite.route -> 1
+            else -> selectedItem
+        }
+    }
+
     if (shouldShowBottomBar) {
         NavigationBar(containerColor = Color.White) {
             navScreens.forEachIndexed { index, item ->

@@ -35,6 +35,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     PapaFoodTheme {
-  //      HomeScreen(modifier = Modifier.padding(16.dp))
+
     }
 }

@@ -29,10 +29,7 @@ fun BottomNavGraph(navController: NavHostController) {
                 HomeScreen(navController = navController)
             }
             composable(route = BottomBar.Favorite.route) {
-                FavoriteScreen()
-            }
-            composable(route = Destination.FAVORITE) {
-                FavoriteScreen()
+                FavoriteScreen(navController = navController)
             }
             composable(
                 route = Destination.RECIPE_DETAIL + "/{recipeId}",

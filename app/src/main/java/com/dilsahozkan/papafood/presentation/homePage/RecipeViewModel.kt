@@ -128,9 +128,9 @@ class RecipeViewModel @Inject constructor(
     fun addRecipeToFavorite(recipeList: List<Recipe>) {
         viewModelScope.launch {
             favoriteLocalData.deleteAll()
-
             val favoriteEntityList = recipeList.map {
                 FavoriteEntity(
+                    id = it.id,
                     title = it.title,
                     image = it.image,
                     summary = it.summary,
