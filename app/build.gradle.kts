@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -10,6 +12,9 @@ android {
     namespace = "com.dilsahozkan.papafood"
     compileSdk = 34
 
+    val localProps = Properties()
+    localProps.load(File("local.properties").inputStream())
+
     defaultConfig {
         applicationId = "com.dilsahozkan.papafood"
         minSdk = 24
@@ -21,6 +26,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "API_KEY", "\"${localProps.getProperty("API_KEY")}\"")
     }
 
     buildTypes {

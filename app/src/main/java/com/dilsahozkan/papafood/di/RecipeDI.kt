@@ -10,7 +10,6 @@ import com.dilsahozkan.papafood.data.local.dao.RecipeDao
 import com.dilsahozkan.papafood.data.remote.api.Service
 import com.dilsahozkan.papafood.data.repository.RecipeRepository
 import com.dilsahozkan.papafood.data.repository.RecipeRepositoryImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

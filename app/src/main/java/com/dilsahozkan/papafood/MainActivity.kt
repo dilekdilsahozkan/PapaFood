@@ -2,6 +2,7 @@ package com.dilsahozkan.papafood
 
 import com.dilsahozkan.papafood.common.PreferencesManager
 import android.os.Bundle
+import com.dilsahozkan.papafood.BuildConfig
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,9 +27,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val apiKey = "c2e40a56f06540e9978f5f909aced8a6"
+        val apiKey = BuildConfig.API_KEY
         preferencesManager.storeApiKey(apiKey)
 
+        println("API Key: $apiKey")
         setContent {
             PapaFoodTheme {
                 val navController = rememberNavController()
