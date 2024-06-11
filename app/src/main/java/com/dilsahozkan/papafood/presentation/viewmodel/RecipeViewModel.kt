@@ -1,12 +1,18 @@
-package com.dilsahozkan.papafood.presentation.homePage
+package com.dilsahozkan.papafood.presentation.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dilsahozkan.papafood.common.BaseResult
 import com.dilsahozkan.papafood.common.ViewState
 import com.dilsahozkan.papafood.common.toLocal
+import com.dilsahozkan.papafood.common.toNotification
 import com.dilsahozkan.papafood.data.local.dao.FavoriteDao
+import com.dilsahozkan.papafood.data.local.dao.NotificationDao
 import com.dilsahozkan.papafood.data.local.dao.RecipeDao
 import com.dilsahozkan.papafood.data.local.entity.FavoriteEntity
 import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
@@ -22,13 +28,14 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@SuppressLint("MutableCollectionMutableState")
 @HiltViewModel
 class RecipeViewModel @Inject constructor(
     private val recipeUseCase: RecipeUseCase,
     private val localData: RecipeDao,
     private val favoriteLocalData: FavoriteDao,
-
-    ) : ViewModel() {
+    private val notificationDao: NotificationDao
+) : ViewModel() {
 
     var _recipeState: MutableStateFlow<ViewState<RandomRecipe>> = MutableStateFlow(ViewState.Idle())
     val recipeState: StateFlow<ViewState<RandomRecipe>> = _recipeState
@@ -40,6 +47,8 @@ class RecipeViewModel @Inject constructor(
     val searchState: StateFlow<ViewState<SearchRecipe>> = _searchState
 
     var favoriteList = mutableListOf<Recipe>()
+
+    var newRecipeTitles: MutableList<String> by mutableStateOf(mutableListOf())
 
     fun isFavorite(recipe: Recipe): Boolean {
         return favoriteList.contains(recipe)
@@ -100,6 +109,7 @@ class RecipeViewModel @Inject constructor(
 
     fun getSearch(searchText: String) {
         viewModelScope.launch {
+            _searchState.value = ViewState.Loading()
             recipeUseCase.getAllRecipe(searchText)
                 .onStart {
                     _searchState.value = ViewState.Idle()
@@ -111,7 +121,25 @@ class RecipeViewModel @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is BaseResult.Success -> {
-                            localData.insertAll(result.data.toLocal().orEmpty())
+                            val newRecipes = result.data.toLocal()
+                            val existingRecipeIds = localData.getAllRecipes().map { it.id }
+
+                            val newUniqueRecipes =
+                                newRecipes.filterNot { it.id in existingRecipeIds }
+
+                            if (newUniqueRecipes.isNotEmpty()) {
+                                localData.insertAll(newUniqueRecipes)
+
+                                newRecipeTitles.apply {
+                                    addAll(newUniqueRecipes.mapNotNull { it.title })
+                                    if (size > 5) {
+                                        removeAll(take(size - 5))
+                                    }
+                                }
+
+                                notificationDao.insertAll(newUniqueRecipes.mapNotNull { it.toNotification() })
+                            }
+
                             _searchState.value = ViewState.Success(result.data)
                         }
 

@@ -34,9 +34,9 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.data.remote.model.Recipe
+import com.dilsahozkan.papafood.presentation.viewmodel.RecipeViewModel
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.MainColor
-import com.dilsahozkan.papafood.ui.theme.regular
 import com.dilsahozkan.papafood.ui.theme.semiBold
 
 @SuppressLint("DefaultLocale")
@@ -47,7 +47,6 @@ fun RecipeItemScreen(
     navController: NavController,
     viewModel: RecipeViewModel = hiltViewModel()
 ) {
-    val formattedScore = String.format("%.1f", recipe.score)
     val isFavorite = remember { mutableStateOf(viewModel.isFavorite(recipe)) }
 
     Card(
@@ -55,7 +54,7 @@ fun RecipeItemScreen(
             containerColor = Color.White
         ),
         modifier = modifier
-            .height(300.dp)
+            .height(265.dp)
             .padding(top = 16.dp)
             .shadow(
                 elevation = 10.dp,
@@ -101,14 +100,14 @@ fun RecipeItemScreen(
                         modifier = Modifier
                             .size(32.dp)
                             .background(
-                                Color.Transparent,
-                                shape = RoundedCornerShape(8.dp)
+                                Color.White,
+                                shape = RoundedCornerShape(25.dp)
                             )
                     ) {
                         Icon(
                             modifier = Modifier
                                 .background(color = Color.White)
-                                .size(40.dp),
+                                .size(25.dp),
                             painter = painterResource(R.drawable.ic_favorite),
                             contentDescription = "RecipeTopBar Page",
                             tint = if (isFavorite.value) MainColor else Gray
@@ -127,36 +126,7 @@ fun RecipeItemScreen(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .padding(start = 16.dp),
-                    painter = painterResource(id = R.drawable.ic_star),
-                    tint = MainColor,
-                    contentDescription = "Star"
-                )
-                Text(
-                    text = formattedScore,
-                    fontFamily = regular,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-                Icon(
-                    modifier = Modifier.padding(start = 25.dp),
-                    painter = painterResource(id = R.drawable.ic_time),
-                    contentDescription = "Time"
-                )
-                Text(
-                    text = recipe.readyInMinutes.toString() + " minutes",
-                    fontFamily = regular,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-            }
         }
-
     }
 }
 

@@ -1,4 +1,4 @@
-package com.dilsahozkan.papafood.presentation.favorite
+package com.dilsahozkan.papafood.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

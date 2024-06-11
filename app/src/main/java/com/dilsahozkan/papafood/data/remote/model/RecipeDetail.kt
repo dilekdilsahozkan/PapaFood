@@ -10,7 +10,7 @@ data class RecipeDetail(
     var readyInMinutes: Int? = null,
     var extendedIngredients: List<Ingredients>? = null,
     var summary: String? = null,
-    var pricePerServing: String? = null,
+    var pricePerServing: Double? = null,
     var instructions: String? = null
 )
 

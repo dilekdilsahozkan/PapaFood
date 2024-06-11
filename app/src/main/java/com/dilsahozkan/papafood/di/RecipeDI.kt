@@ -6,6 +6,7 @@ import com.dilsahozkan.papafood.BuildConfig
 import com.dilsahozkan.papafood.common.PreferencesManager
 import com.dilsahozkan.papafood.data.local.RecipeDB
 import com.dilsahozkan.papafood.data.local.dao.FavoriteDao
+import com.dilsahozkan.papafood.data.local.dao.NotificationDao
 import com.dilsahozkan.papafood.data.local.dao.RecipeDao
 import com.dilsahozkan.papafood.data.remote.api.Service
 import com.dilsahozkan.papafood.data.repository.RecipeRepository
@@ -26,6 +27,16 @@ import javax.inject.Singleton
 class RecipeDI {
     @Provides
     fun provideBaseUrl() = "https://api.spoonacular.com"
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    object AppModule {
+
+        @Provides
+        fun provideContext(@ApplicationContext context: Context): Context {
+            return context
+        }
+    }
 
     @Singleton
     @Provides
@@ -79,6 +90,12 @@ class RecipeDI {
         @Singleton
         fun provideFavoriteDao(database: RecipeDB): FavoriteDao {
             return database.favoriteDao()
+        }
+
+        @Provides
+        @Singleton
+        fun provideNotificationDao(database: RecipeDB): NotificationDao {
+            return database.notificationDao()
         }
 
         @Provides

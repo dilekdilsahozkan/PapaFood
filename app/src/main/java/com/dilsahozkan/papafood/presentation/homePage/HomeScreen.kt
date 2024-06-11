@@ -1,18 +1,23 @@
 package com.dilsahozkan.papafood.presentation.homePage
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,7 +38,9 @@ import com.dilsahozkan.papafood.common.ViewState
 import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
 import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.data.remote.model.SearchRecipe
+import com.dilsahozkan.papafood.presentation.viewmodel.RecipeViewModel
 import com.dilsahozkan.papafood.ui.theme.mediumFont
+import com.google.gson.Gson
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -44,9 +52,25 @@ fun HomeScreen(
     val recipeSliderState by viewModel.recipeState.collectAsState()
     val recipeItemState by viewModel.searchState.collectAsState()
 
+    val mealTypes = listOf(
+        "Main Course",
+        "Side Dish",
+        "Dessert",
+        "Appetizer",
+        "Salad",
+        "Bread",
+        "Breakfast",
+        "Soup",
+        "Beverage",
+        "Sauce",
+        "Marinade",
+        "Snack",
+        "Drink"
+    )
+
     LaunchedEffect(Unit) {
         viewModel.getRandomRecipes()
-        viewModel.getSearch("")
+        viewModel.getSearch("Main Course")
     }
 
     Scaffold(
@@ -64,10 +88,24 @@ fun HomeScreen(
                     fontSize = 20.sp,
                     fontFamily = mediumFont
                 )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_notification),
-                    contentDescription = "Notification"
-                )
+
+                IconButton(
+                    onClick = {
+                        val titlesJson = Gson().toJson(viewModel.newRecipeTitles)
+                        navController.navigate("notifications?titles=$titlesJson")
+                          },
+                    modifier = Modifier
+                        .size(32.dp)
+                        .background(
+                            Color.Transparent,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_notification),
+                        contentDescription = "Notification"
+                    )
+                }
             }
         }
     ) { paddingValues ->
@@ -109,6 +147,24 @@ fun HomeScreen(
             if (recipeItemState is ViewState.Success) {
                 val recipeList =
                     (recipeItemState as ViewState.Success<SearchRecipe>).data.results ?: emptyList()
+
+                item {
+                    LazyRow(
+                        contentPadding = PaddingValues(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(mealTypes) { mealTypes ->
+                            CategoryItem(
+                                modifier = Modifier,
+                                category = mealTypes,
+                                onItemClick = { category ->
+                                    viewModel.getSearch(category)
+                                },
+                            )
+                        }
+                    }
+                }
+
                 items(recipeList) { recipe ->
                     RecipeItemScreen(
                         recipe = recipe,

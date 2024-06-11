@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="Theme.PapaFood" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen.IconBackground" >
-        <item name="windowSplashScreenAnimationDuration">2000</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen</item>
+    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_papa_logo</item>
         <item name="windowSplashScreenBackground">@color/splashBackground</item>
         <item name="postSplashScreenTheme">@style/Theme.PapaFood</item>
     </style>
-
 </resources>

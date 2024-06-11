@@ -9,7 +9,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Service {
-    @GET("recipes/random")
+    @GET("/recipes/random")
     suspend fun randomRecipes(
         @Query("number") number: Int,
         @Query("tags") tags: String,
@@ -17,13 +17,13 @@ interface Service {
         @Query("apiKey") apiKey: String
     ): Response<RandomRecipe>
 
-    @GET("recipes/{id}/information")
+    @GET("/recipes/{id}/information")
     suspend fun recipeDetail(
         @Path("id") number: Int,
         @Query("apiKey") apiKey: String
     ): Response<RecipeDetail>
 
-    @GET("recipes/complexSearch")
+    @GET("/recipes/complexSearch")
     suspend fun allFoods(
         @Query("query") query: String,
         @Query("apiKey") apiKey: String

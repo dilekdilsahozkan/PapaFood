@@ -11,7 +11,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen(navController: NavHostController, startDestination: String) {
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStackEntry?.destination
     val shouldShowBottomBar = currentDestination?.route != Destination.RECIPE_DETAIL + "/{recipeId}"
@@ -23,6 +23,6 @@ fun MainScreen(navController: NavHostController) {
             }
         }
     }) {
-        BottomNavGraph(navController = navController)
+        BottomNavGraph(navController = navController, startDestination = startDestination)
     }
 }

@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dilsahozkan.papafood.common.ViewState
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
-import com.dilsahozkan.papafood.presentation.homePage.RecipeViewModel
+import com.dilsahozkan.papafood.presentation.viewmodel.RecipeViewModel
 @Composable
 fun RecipeDetailScreen(
     navController: NavController,
