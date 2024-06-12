@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PapaFood</string>
+    <string name="welcome">Welcome to PapaFood 👋🏼</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite 🍩</string>
+    <string name="search_for">What are you looking for?</string>
+    <string name="new_recipe">New Recipe: </string>
+    <string name="notifications">Notification</string>
+
 </resources>

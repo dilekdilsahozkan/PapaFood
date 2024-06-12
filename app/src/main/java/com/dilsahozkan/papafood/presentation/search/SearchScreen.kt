@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -69,7 +70,7 @@ fun SearchScreen(
                 Text(
                     modifier = Modifier
                         .padding(start = 10.dp),
-                    text = "Search",
+                    text = stringResource(id = R.string.search),
                     fontSize = 20.sp,
                     fontFamily = mediumFont
                 )
@@ -90,7 +91,7 @@ fun SearchScreen(
                     .padding(start = 16.dp, end = 16.dp, top = 10.dp),
                 placeholder = {
                     Text(
-                        text = "What are you looking for?",
+                        text = stringResource(id = R.string.search_for),
                         modifier = Modifier.alpha(0.5f)
                     )
                 },
@@ -98,7 +99,7 @@ fun SearchScreen(
                     Icon(
                         modifier = Modifier.padding(start = 10.dp),
                         painter = painterResource(id = R.drawable.ic_search),
-                        contentDescription = "Search",
+                        contentDescription = stringResource(id = R.string.search),
                         tint = Gray
                     )
                 },
