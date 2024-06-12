@@ -35,7 +35,7 @@ PapaFood is a simple, easy-to-use food recipe app. It is built using Android-Jet
   - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Jetpack
     DataStore is a data storage solution that allows you to store key-value pairs or typed objects
     with protocol buffers. DataStore uses Kotlin coroutines and Flow to store data asynchronously,
-    consistently, and transactionally.
+    consistently, and transitionally.
 - [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Hilt is a dependency injection library for Android that reduces the     boilerplate of doing manual dependency injection in your project. Doing manual dependency injection requires you to construct every class and its                 dependencies by hand, and to use containers to reuse and manage dependencies.
   
 - [Splash API](https://developer.android.com/develop/ui/views/launch/splash-screen) - Starting in Android 12, the SplashScreen API lets apps launch with animation, including an into-app motion at launch, a splash screen showing your app icon, and a transition to your app itself. A SplashScreen is a Window and therefore covers an Activity.
