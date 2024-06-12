@@ -1,6 +1,11 @@
 # 🍔 PapaFood
 PapaFood is a simple, easy-to-use food recipe app. It is built using Android-Jetpack Compose and is built on the principle of MVVM with Modern Android Architecture Components.
 
+## Screenshots
+
+(Include screenshots of your app here)
+
+
 ## Build With 🛠
 
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android
@@ -33,3 +38,22 @@ PapaFood is a simple, easy-to-use food recipe app. It is built using Android-Jet
   - Modular and customizable Material Design UI components for Android.
 - [Figma](https://figma.com/) - Figma is a vector graphics editor and prototyping tool which is
   primarily web-based.
+
+## Installation
+
+1. Clone the project to Android Studio.
+2. Download the necessary dependencies.
+3. Add your own API KEY.
+4. Run the app on an Android device or emulator.
+
+## Contributing
+
+If you'd like to contribute, please submit a pull request. All contributions are welcome!
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contact
+
+For any questions or feedback, please reach out to dilekdilsah21@gmail.com.

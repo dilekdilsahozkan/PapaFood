@@ -5,9 +5,9 @@ import android.util.Log
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class PapaFoodApp: Application() {
+class PapaFoodApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        Log.v("PaparaApp","onCreate")
+        Log.v("PaparaApp", "onCreate")
     }
 }

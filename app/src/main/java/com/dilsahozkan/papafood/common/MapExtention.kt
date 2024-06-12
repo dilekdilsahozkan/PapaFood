@@ -1,6 +1,5 @@
 package com.dilsahozkan.papafood.common
 
-import android.app.Notification
 import com.dilsahozkan.papafood.data.local.entity.NotificationEntity
 import com.dilsahozkan.papafood.data.local.entity.RecipeEntity
 import com.dilsahozkan.papafood.data.remote.model.Recipe
@@ -11,9 +10,10 @@ fun SearchRecipe.toLocal(): List<RecipeEntity> {
         it.toLocal()
     }.orEmpty()
 }
+
 fun Recipe.toLocal(): RecipeEntity {
     return RecipeEntity(
-        id = this.id ?: 0,
+        id = this.id,
         title = this.title ?: "",
         image = this.image ?: "",
         summary = this.summary ?: "",

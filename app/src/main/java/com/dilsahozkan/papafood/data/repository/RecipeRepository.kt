@@ -6,7 +6,7 @@ import com.dilsahozkan.papafood.data.remote.model.SearchRecipe
 import retrofit2.Response
 
 interface RecipeRepository {
-    suspend fun getRandomRecipes() : Response<RandomRecipe>
-    suspend fun  getRecipeDetail(id : Int) : Response<RecipeDetail>
-    suspend fun  getRecipeSearch(searchText: String) : Response<SearchRecipe>
+    suspend fun getRandomRecipes(): Response<RandomRecipe>
+    suspend fun getRecipeDetail(id: Int): Response<RecipeDetail>
+    suspend fun getRecipeSearch(searchText: String): Response<SearchRecipe>
 }

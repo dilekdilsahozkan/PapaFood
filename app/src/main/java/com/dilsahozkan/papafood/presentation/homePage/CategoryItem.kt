@@ -13,9 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.SoftOrangeColor
+import com.dilsahozkan.papafood.ui.theme.regular
 
 @Composable
 fun CategoryItem(
@@ -45,7 +47,11 @@ fun CategoryItem(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text(text = category)
+            Text(
+                text = category,
+                color = Color.Black,
+                fontFamily = regular
+            )
         }
     }
 }

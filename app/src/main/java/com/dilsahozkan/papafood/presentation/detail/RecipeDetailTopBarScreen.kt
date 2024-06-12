@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -77,6 +78,7 @@ fun RecipeDetailTopBarScreen(
                 Text(
                     text = recipe.title.toString(),
                     fontSize = 20.sp,
+                    color = Color.Black,
                     fontFamily = semiBold,
                     modifier = Modifier
                         .padding(horizontal = (16 + 28 * offsetProgress).dp)

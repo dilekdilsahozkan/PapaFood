@@ -21,7 +21,7 @@ import com.dilsahozkan.papafood.ui.theme.MainColor
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BottomNavigationScreen(navController: NavHostController) {
-    val navScreens = listOf(BottomBar.Home, BottomBar.Favorite)
+    val navScreens = listOf(BottomBar.Home, BottomBar.Search, BottomBar.Favorite)
     var selectedItem by rememberSaveable { mutableStateOf(0) }
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -32,7 +32,8 @@ fun BottomNavigationScreen(navController: NavHostController) {
     currentDestination?.route?.let { route ->
         selectedItem = when (route) {
             BottomBar.Home.route -> 0
-            BottomBar.Favorite.route -> 1
+            BottomBar.Search.route -> 1
+            BottomBar.Favorite.route -> 2
             else -> selectedItem
         }
     }

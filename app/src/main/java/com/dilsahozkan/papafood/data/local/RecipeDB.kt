@@ -9,7 +9,11 @@ import com.dilsahozkan.papafood.data.local.entity.FavoriteEntity
 import com.dilsahozkan.papafood.data.local.entity.NotificationEntity
 import com.dilsahozkan.papafood.data.local.entity.RecipeEntity
 
-@Database(entities = [RecipeEntity::class, FavoriteEntity::class, NotificationEntity::class], version = 3, exportSchema = false)
+@Database(
+    entities = [RecipeEntity::class, FavoriteEntity::class, NotificationEntity::class],
+    version = 3,
+    exportSchema = false
+)
 abstract class RecipeDB : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao
     abstract fun favoriteDao(): FavoriteDao

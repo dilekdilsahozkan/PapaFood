@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.SoftOrangeColor
 import com.dilsahozkan.papafood.ui.theme.mediumFont
-import com.dilsahozkan.papafood.ui.theme.semiBold
 
 @Composable
 fun NotificationItem(title: String) {
@@ -63,6 +62,6 @@ fun NotificationItem(title: String) {
 
 @Preview
 @Composable
-fun Preview(){
+fun Preview() {
     NotificationItem(title = "Hi")
 }

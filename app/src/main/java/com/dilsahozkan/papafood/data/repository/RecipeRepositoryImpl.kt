@@ -13,7 +13,7 @@ class RecipeRepositoryImpl @Inject constructor(
     private val preferencesManager: PreferencesManager
 ) : RecipeRepository {
 
-    val apiKey = preferencesManager.getApiKey()
+    private val apiKey = preferencesManager.getApiKey()
 
     override suspend fun getRandomRecipes(): Response<RandomRecipe> =
         service.randomRecipes(4, "", false, apiKey)

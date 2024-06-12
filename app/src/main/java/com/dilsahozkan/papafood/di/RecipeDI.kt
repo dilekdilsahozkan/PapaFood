@@ -28,16 +28,6 @@ class RecipeDI {
     @Provides
     fun provideBaseUrl() = "https://api.spoonacular.com"
 
-    @Module
-    @InstallIn(SingletonComponent::class)
-    object AppModule {
-
-        @Provides
-        fun provideContext(@ApplicationContext context: Context): Context {
-            return context
-        }
-    }
-
     @Singleton
     @Provides
     fun provideOkHttpClient() = if (BuildConfig.DEBUG) {

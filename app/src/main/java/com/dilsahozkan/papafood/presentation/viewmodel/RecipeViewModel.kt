@@ -11,18 +11,16 @@ import com.dilsahozkan.papafood.common.BaseResult
 import com.dilsahozkan.papafood.common.ViewState
 import com.dilsahozkan.papafood.common.toLocal
 import com.dilsahozkan.papafood.common.toNotification
-import com.dilsahozkan.papafood.data.local.dao.FavoriteDao
 import com.dilsahozkan.papafood.data.local.dao.NotificationDao
 import com.dilsahozkan.papafood.data.local.dao.RecipeDao
-import com.dilsahozkan.papafood.data.local.entity.FavoriteEntity
 import com.dilsahozkan.papafood.data.remote.model.RandomRecipe
-import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.data.remote.model.RecipeDetail
 import com.dilsahozkan.papafood.data.remote.model.SearchRecipe
 import com.dilsahozkan.papafood.domain.RecipeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -33,7 +31,6 @@ import javax.inject.Inject
 class RecipeViewModel @Inject constructor(
     private val recipeUseCase: RecipeUseCase,
     private val localData: RecipeDao,
-    private val favoriteLocalData: FavoriteDao,
     private val notificationDao: NotificationDao
 ) : ViewModel() {
 
@@ -46,14 +43,18 @@ class RecipeViewModel @Inject constructor(
     var _searchState: MutableStateFlow<ViewState<SearchRecipe>> = MutableStateFlow(ViewState.Idle())
     val searchState: StateFlow<ViewState<SearchRecipe>> = _searchState
 
-    var favoriteList = mutableListOf<Recipe>()
+    private val _searchText = MutableStateFlow("")
+    val searchText = _searchText.asStateFlow()
+
+    private val _isSearching = MutableStateFlow(false)
+    val isSearching = _isSearching.asStateFlow()
 
     var newRecipeTitles: MutableList<String> by mutableStateOf(mutableListOf())
 
-    fun isFavorite(recipe: Recipe): Boolean {
-        return favoriteList.contains(recipe)
+    fun onSearchTextChange(newText: String) {
+        _searchText.value = newText
+        getSearch(newText)
     }
-
 
     fun getRandomRecipes() {
         viewModelScope.launch {
@@ -136,7 +137,6 @@ class RecipeViewModel @Inject constructor(
                                         removeAll(take(size - 5))
                                     }
                                 }
-
                                 notificationDao.insertAll(newUniqueRecipes.mapNotNull { it.toNotification() })
                             }
 
@@ -151,43 +151,5 @@ class RecipeViewModel @Inject constructor(
                     }
                 }
         }
-    }
-
-    fun addRecipeToFavorite(recipeList: List<Recipe>) {
-        viewModelScope.launch {
-            favoriteLocalData.deleteAll()
-            val favoriteEntityList = recipeList.map {
-                FavoriteEntity(
-                    id = it.id,
-                    title = it.title,
-                    image = it.image,
-                    summary = it.summary,
-                    score = it.score,
-                    readyInMinutes = it.readyInMinutes,
-                    pricePerServing = it.pricePerServing,
-                    saved = false
-                )
-            }
-            favoriteLocalData.insertAll(favoriteEntityList)
-        }
-    }
-
-    fun removeRecipeFromFavorite(recipe: Recipe) {
-        viewModelScope.launch {
-            favoriteLocalData.deleteAll()
-            val favoriteEntityList = favoriteList.map {
-                FavoriteEntity(
-                    title = it.title,
-                    image = it.image,
-                    summary = it.summary,
-                    score = it.score,
-                    readyInMinutes = it.readyInMinutes,
-                    pricePerServing = it.pricePerServing,
-                    saved = false
-                )
-            }
-            favoriteLocalData.insertAll(favoriteEntityList)
-        }
-        favoriteList.remove(recipe)
     }
 }

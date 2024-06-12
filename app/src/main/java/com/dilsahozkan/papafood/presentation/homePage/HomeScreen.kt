@@ -54,7 +54,6 @@ fun HomeScreen(
 
     val mealTypes = listOf(
         "Main Course",
-        "Side Dish",
         "Dessert",
         "Appetizer",
         "Salad",
@@ -62,10 +61,6 @@ fun HomeScreen(
         "Breakfast",
         "Soup",
         "Beverage",
-        "Sauce",
-        "Marinade",
-        "Snack",
-        "Drink"
     )
 
     LaunchedEffect(Unit) {
@@ -93,7 +88,7 @@ fun HomeScreen(
                     onClick = {
                         val titlesJson = Gson().toJson(viewModel.newRecipeTitles)
                         navController.navigate("notifications?titles=$titlesJson")
-                          },
+                    },
                     modifier = Modifier
                         .size(32.dp)
                         .background(
@@ -102,7 +97,7 @@ fun HomeScreen(
                         )
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_notification),
+                        painter = painterResource(id = R.drawable.ic_new_notification),
                         contentDescription = "Notification"
                     )
                 }

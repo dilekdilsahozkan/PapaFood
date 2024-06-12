@@ -34,8 +34,10 @@ import com.dilsahozkan.papafood.ui.theme.semiBold
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun RecipeSliderScreen(recipe: Recipe,
-                       navController: NavController) {
+fun RecipeSliderScreen(
+    recipe: Recipe,
+    navController: NavController
+) {
 
     val formattedScore = String.format("%.1f", recipe.score)
 
@@ -54,7 +56,7 @@ fun RecipeSliderScreen(recipe: Recipe,
             .clickable {
                 navController.navigate("recipe_detail/${recipe.id}")
             },
-        ) {
+    ) {
 
         Column(Modifier.fillMaxWidth()) {
             AsyncImage(
@@ -62,13 +64,14 @@ fun RecipeSliderScreen(recipe: Recipe,
                     .height(190.dp)
                     .fillMaxWidth(),
                 model = recipe.image,
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.FillWidth,
                 contentDescription = "Image"
             )
 
             Text(
                 text = recipe.title.toString(),
                 fontFamily = semiBold,
+                color = Color.Black,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(start = 16.dp, top = 10.dp),
                 maxLines = 1,
@@ -89,6 +92,7 @@ fun RecipeSliderScreen(recipe: Recipe,
                 Text(
                     text = formattedScore,
                     fontFamily = regular,
+                    color = Color.Black,
                     modifier = Modifier.padding(start = 8.dp)
                 )
                 Icon(
@@ -99,6 +103,7 @@ fun RecipeSliderScreen(recipe: Recipe,
                 Text(
                     text = recipe.readyInMinutes.toString() + " minutes",
                     fontFamily = regular,
+                    color = Color.Black,
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }

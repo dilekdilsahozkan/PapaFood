@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -113,6 +114,7 @@ fun RecipeDetailContent(
                     recipe.instructions?.let {
                         Text(
                             text = it.stripHtml(),
+                            color = Black,
                             textAlign = TextAlign.Start,
                             fontFamily = regular
                         )
@@ -134,6 +136,9 @@ fun InfoColumn(@DrawableRes iconResource: Int, text: String) {
                 .size(30.dp)
                 .padding(bottom = 5.dp)
         )
-        Text(text = text, fontFamily = mediumFont)
+        Text(
+            text = text, fontFamily = mediumFont,
+            color = Black
+        )
     }
 }

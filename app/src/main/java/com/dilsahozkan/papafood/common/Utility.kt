@@ -1,9 +1,11 @@
 package com.dilsahozkan.papafood.common
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
 
+@SuppressLint("ObsoleteSdkInt")
 fun String.fromHtml(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)

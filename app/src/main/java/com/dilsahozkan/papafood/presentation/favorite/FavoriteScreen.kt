@@ -37,8 +37,10 @@ fun FavoriteScreen(
         }
     ) { paddingValues ->
 
-            LazyColumn(
-            modifier = Modifier.padding(paddingValues).fillMaxWidth()
+        LazyColumn(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxWidth()
 
         ) {
             items(dataList) { item ->

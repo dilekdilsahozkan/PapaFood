@@ -1,4 +1,4 @@
-package com.dilsahozkan.papafood.presentation.favorite
+package com.dilsahozkan.papafood.presentation.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,36 +24,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
-import com.dilsahozkan.papafood.data.local.entity.FavoriteEntity
-import com.dilsahozkan.papafood.presentation.viewmodel.FavoriteViewModel
+import com.dilsahozkan.papafood.data.remote.model.Recipe
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.semiBold
 
 @Composable
-fun FavoriteItemScreen(
-    recipe: FavoriteEntity,
-    navController: NavController,
-    viewModel: FavoriteViewModel = hiltViewModel()
-) {
+fun SearchItem(recipe: Recipe, onClick: () -> Unit) {
+
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
         modifier = Modifier
-            .height(height = 110.dp)
-            .padding(16.dp)
+            .height(height = 90.dp)
+            .padding(10.dp)
             .shadow(
                 elevation = 10.dp,
                 spotColor = Gray,
                 shape = RoundedCornerShape(10.dp)
             )
             .clickable {
-                navController.navigate("recipe_detail/${recipe.id}")
+                onClick()
             }
             .fillMaxWidth()
     ) {
@@ -65,7 +59,7 @@ fun FavoriteItemScreen(
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .size(120.dp),
+                    .size(100.dp),
                 model = recipe.image,
                 contentScale = ContentScale.FillWidth,
                 contentDescription = "Image"
@@ -82,28 +76,6 @@ fun FavoriteItemScreen(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-
-            Spacer(modifier = Modifier.weight(0.01f))
-
-            IconButton(
-                onClick = {
-                    viewModel.deleteRecipe(recipe)
-                },
-                modifier = Modifier
-                    .size(32.dp)
-                    .background(
-                        Color.Transparent,
-                        shape = RoundedCornerShape(8.dp)
-                    )
-            ) {
-                Icon(
-                    modifier = Modifier.size(28.dp),
-                    painter = painterResource(id = R.drawable.ic_favorite),
-                    contentDescription = "Time",
-                    tint = MainColor
-                )
-            }
         }
     }
 }
-

@@ -34,7 +34,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.dilsahozkan.papafood.R
 import com.dilsahozkan.papafood.data.remote.model.Recipe
-import com.dilsahozkan.papafood.presentation.viewmodel.RecipeViewModel
+import com.dilsahozkan.papafood.presentation.viewmodel.FavoriteViewModel
 import com.dilsahozkan.papafood.ui.theme.Gray
 import com.dilsahozkan.papafood.ui.theme.MainColor
 import com.dilsahozkan.papafood.ui.theme.semiBold
@@ -45,7 +45,7 @@ fun RecipeItemScreen(
     recipe: Recipe,
     modifier: Modifier,
     navController: NavController,
-    viewModel: RecipeViewModel = hiltViewModel()
+    viewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     val isFavorite = remember { mutableStateOf(viewModel.isFavorite(recipe)) }
 
@@ -74,7 +74,8 @@ fun RecipeItemScreen(
                 AsyncImage(
                     modifier = Modifier
                         .height(200.dp)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                    ,
                     model = recipe.image,
                     contentScale = ContentScale.FillWidth,
                     contentDescription = "Image"
@@ -120,6 +121,7 @@ fun RecipeItemScreen(
             Text(
                 text = recipe.title.toString(),
                 fontFamily = semiBold,
+                color = Color.Black,
                 fontSize = 18.sp,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 10.dp),

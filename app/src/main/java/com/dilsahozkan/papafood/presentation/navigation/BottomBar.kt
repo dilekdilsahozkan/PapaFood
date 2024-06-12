@@ -14,6 +14,12 @@ sealed class BottomBar(
         icon = R.drawable.ic_home
     )
 
+    data object Search : BottomBar(
+        route = "search",
+        title = "Search",
+        icon = R.drawable.ic_search
+    )
+
     data object Favorite : BottomBar(
         route = "favorite",
         title = "Favorite",
