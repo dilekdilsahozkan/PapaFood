@@ -3,11 +3,13 @@ PapaFood is a simple, easy-to-use food recipe app. It is built using Android-Jet
 
 ## Screenshots
 
-<img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/ed29ab7e-4a96-4df6-9e5d-fdcd18914bc5" alt="Visual 5" width="200">
-<img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/c6047c19-f427-4187-aec9-fbd384b8e8f5" alt="Visual 5" width="200">
-<img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/065f1b46-291f-4029-89d5-dea3fe707511" alt="Visual 5" width="200">
-<img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/35f08f64-88ee-44f4-bc57-bfc00a26e97c" alt="Visual 5" width="200">
-<img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/423b62a7-daf2-4a08-9771-9838334a627f" alt="Visual 5" width="200">
+<div style="display: flex; justify-content: space-between;">
+    <img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/ed29ab7e-4a96-4df6-9e5d-fdcd18914bc5" alt="Visual 5" width="200">
+    <img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/c6047c19-f427-4187-aec9-fbd384b8e8f5" alt="Visual 5" width="200">
+    <img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/065f1b46-291f-4029-89d5-dea3fe707511" alt="Visual 5" width="200"><br><br>
+    <img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/35f08f64-88ee-44f4-bc57-bfc00a26e97c" alt="Visual 5" width="200">
+    <img src="https://github.com/dilekdilsahozkan/PapaFood/assets/77121799/423b62a7-daf2-4a08-9771-9838334a627f" alt="Visual 5" width="200">
+</div>
 
 ## Build With 🛠
 
