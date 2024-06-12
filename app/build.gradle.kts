@@ -81,17 +81,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Coil
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.coil.compose)
 
     // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Retrofit - Okhttp
     implementation(libs.retrofit)
     implementation(libs.converter.gson.v2110)
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation(libs.logging.interceptor)
     implementation(libs.okHttp)
 
     // Gson
@@ -103,23 +103,23 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation(libs.lifecycle.viewmodel.compose)
     implementation(kotlin("script-runtime"))
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.compose.v240alpha10)
 
     //Material3
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation(libs.material3)
     implementation(libs.androidx.work.runtime.ktx)
-    implementation("androidx.compose.ui:ui:1.4.3")
+    implementation(libs.ui)
 
     //DataStore
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(libs.androidx.datastore.preferences)
 
     //Splash Screen
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation(libs.androidx.core.splashscreen)
 
 }
 

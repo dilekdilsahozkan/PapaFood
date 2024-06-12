@@ -79,7 +79,7 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Welcome 👋🏼",
+                    text = "Welcome to PapaFood👋🏼",
                     fontSize = 20.sp,
                     fontFamily = mediumFont
                 )
