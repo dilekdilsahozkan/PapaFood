@@ -63,4 +63,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Contact
 
-For any questions or feedback, please reach out to dilekdilsah21@gmail.com.
+For any questions or feedback, please reach out to dilekdilsah21@gmail.com
